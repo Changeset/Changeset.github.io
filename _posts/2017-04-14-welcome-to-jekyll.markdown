@@ -4,11 +4,12 @@ title:  "Test"
 date:   2017-04-14 19:31:36 +0800
 categories: jekyll update
 ---
-###测试，测试~
+测试，测试~
+
   这是一个
- - 技术博客
- - 情感博客
- - 励志博客
+ - `技术博客`
+ - `情感博客`
+ - `励志博客`
 
 {% highlight ruby %}
 def print_hi(name)
@@ -19,8 +20,11 @@ print_hi('changeset')
 {% endhighlight %}
 
   你能从这里找到我：
+
   我的[微博][weibo]
+
   我的[知乎][zhihu]
+
   我也很忙，就先这样。
 
 [weibo]: https://www.weibo.com/2679553124

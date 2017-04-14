@@ -12,11 +12,11 @@ categories: jekyll update
  - `励志博客`
 
 {% highlight ruby %}
-def print_hi(name)
-  puts "Hi, #{name}"
-end
-print_hi('changeset')
-#=> prints 'Hi, changeset' to STDOUT.
+#include <iostream>
+using namespace::std;
+void main(){
+    cout << "Hello, World!" << endl;
+}
 {% endhighlight %}
 
   你能从这里找到我：

@@ -7,9 +7,9 @@ categories: jekyll update
 测试，测试~
 
   这是一个
- - `技术博客`
- - `情感博客`
- - `励志博客`
+ - `技术`博客
+ - `情感`博客
+ - `励志`博客
 
 {% highlight ruby %}
 #include <iostream>

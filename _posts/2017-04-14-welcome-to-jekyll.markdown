@@ -18,7 +18,10 @@ print_hi('changeset')
 #=> prints 'Hi, changeset' to STDOUT.
 {% endhighlight %}
 
-  这是我的[微博][weibo]，我的[知乎][zhihu] 就先这样。
+  你能从这里找到我：
+  我的[微博][weibo]
+  我的[知乎][zhihu]
+  我也很忙，就先这样。
 
 [weibo]: https://www.weibo.com/2679553124
 [zhihu]: https://www.zhihu.com/people/liao-xue-long

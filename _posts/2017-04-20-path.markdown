@@ -1,0 +1,177 @@
+---
+layout: post
+title:  "Mac 中CMake编译错误无法正确读取系统信息"
+date:   2017-04-20 19:47:36 +0800
+categories: jekyll update
+---
+在准备一个验证0..1000中有多少个"7"时，就随手下了个CLion。
+之前一直是在实验室的电脑用CLion写C++来着，用着很舒服。
+对CLion进行配置之后进行编译时出现以下错误：
+
+
+    > /Applications/CMake.app/Contents/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /Users/changeset/CLionProjects/untitled
+    > -- The C compiler identification is AppleClang 8.1.0.8020038
+    > -- The CXX compiler identification is AppleClang 8.1.0.8020038 CMake Error at
+    > /Applications/CMake.app/Contents/share/cmake-3.7/Modules/CMakeSystemSpecificInformation.cmake:26
+    > (include):   include called with wrong number of arguments.  include()
+    > only takes one   file. Call Stack (most recent call first):  
+    > CMakeLists.txt:2 (PROJECT)
+    > 
+    > 
+    > System is unknown to cmake, create: Platform/sysname:Darwin 
+    > nodename:Fez.local  release:16.5.0  version:Darwin Kernel Version
+    > 16.5.0: Fri Mar  3 16:52:33 PST 2017; root:xnu-3789.51.2~3/RELEASE_X86_64  machine:x86_64 to use this
+    > system, please send your config file to cmake@www.cmake.org so it can
+    > be added to cmake Your CMakeCache.txt file was copied to
+    > CopyOfCMakeCache.txt. Please send that file to cmake@www.cmake.org.
+    > CMake Error at
+    > /Applications/CMake.app/Contents/share/cmake-3.7/Modules/CMakeCInformation.cmake:38
+    > (include):   include called with wrong number of arguments.  include()
+    > only takes one   file. Call Stack (most recent call first):  
+    > CMakeLists.txt:2 (PROJECT)
+    > 
+    > 
+    > CMake Error at
+    > /Applications/CMake.app/Contents/share/cmake-3.7/Modules/CMakeCInformation.cmake:41
+    > (include):   include called with invalid argument:
+    > root:xnu-3789.51.2~3_RELEASE_X86_64
+    > 
+    >    machine:x86_64 Call Stack (most recent call first):  
+    > CMakeLists.txt:2 (PROJECT)
+    > 
+    > 
+    > CMake Error at
+    > /Applications/CMake.app/Contents/share/cmake-3.7/Modules/CMakeCInformation.cmake:48
+    > (include):   include called with wrong number of arguments.  include()
+    > only takes one   file. Call Stack (most recent call first):  
+    > CMakeLists.txt:2 (PROJECT)
+    > 
+    > 
+    > CMake Error at
+    > /Applications/CMake.app/Contents/share/cmake-3.7/Modules/CMakeCInformation.cmake:52
+    > (include):   include called with wrong number of arguments.  include()
+    > only takes one   file. Call Stack (most recent call first):  
+    > CMakeLists.txt:2 (PROJECT)
+    > 
+    > 
+    > -- Check for working C compiler: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc
+    > CMake Error at
+    > /Applications/CMake.app/Contents/share/cmake-3.7/Modules/CMakeSystemSpecificInformation.cmake:26
+    > (include):   include called with wrong number of arguments.  include()
+    > only takes one   file. Call Stack (most recent call first):  
+    > /Users/changeset/CLionProjects/untitled/cmake-build-debug/CMakeFiles/CMakeTmp/CMakeLists.txt:2
+    > (project)
+    > 
+    > 
+    > System is unknown to cmake, create: Platform/sysname:Darwin 
+    > nodename:Fez.local  release:16.5.0  version:Darwin Kernel Version
+    > 16.5.0: Fri Mar  3 16:52:33 PST 2017; root:xnu-3789.51.2~3/RELEASE_X86_64  machine:x86_64 to use this
+    > system, please send your config file to cmake@www.cmake.org so it can
+    > be added to cmake CMake Error at
+    > /Applications/CMake.app/Contents/share/cmake-3.7/Modules/CMakeCInformation.cmake:38
+    > (include):   include called with wrong number of arguments.  include()
+    > only takes one   file. Call Stack (most recent call first):  
+    > /Users/changeset/CLionProjects/untitled/cmake-build-debug/CMakeFiles/CMakeTmp/CMakeLists.txt:2
+    > (project)
+    > 
+    > 
+    > CMake Error at
+    > /Applications/CMake.app/Contents/share/cmake-3.7/Modules/CMakeCInformation.cmake:41
+    > (include):   include called with invalid argument:
+    > root:xnu-3789.51.2~3_RELEASE_X86_64
+    > 
+    >    machine:x86_64 Call Stack (most recent call first):  
+    > /Users/changeset/CLionProjects/untitled/cmake-build-debug/CMakeFiles/CMakeTmp/CMakeLists.txt:2
+    > (project)
+    > 
+    > 
+    > CMake Error at
+    > /Applications/CMake.app/Contents/share/cmake-3.7/Modules/CMakeCInformation.cmake:48
+    > (include):   include called with wrong number of arguments.  include()
+    > only takes one   file. Call Stack (most recent call first):  
+    > /Users/changeset/CLionProjects/untitled/cmake-build-debug/CMakeFiles/CMakeTmp/CMakeLists.txt:2
+    > (project)
+    > 
+    > 
+    > CMake Error at
+    > /Applications/CMake.app/Contents/share/cmake-3.7/Modules/CMakeCInformation.cmake:52
+    > (include):   include called with wrong number of arguments.  include()
+    > only takes one   file. Call Stack (most recent call first):  
+    > /Users/changeset/CLionProjects/untitled/cmake-build-debug/CMakeFiles/CMakeTmp/CMakeLists.txt:2
+    > (project)
+    > 
+    > 
+    > CMake Error: Internal CMake error, TryCompile configure of cmake
+    > failed
+    > -- Check for working C compiler: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc
+    > -- broken CMake Error at /Applications/CMake.app/Contents/share/cmake-3.7/Modules/CMakeTestCCompiler.cmake:51
+    > (message):   The C compiler  
+    > "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc"
+    > is not able to compile a simple test program.
+    > 
+    >   It fails with the following output:
+    > 
+    >    
+    > 
+    >   
+    > 
+    >   CMake will not be able to correctly generate this project. Call
+    > Stack (most recent call first):   CMakeLists.txt:2 (PROJECT)
+    > 
+    > 
+    > -- Configuring incomplete, errors occurred! See also "/Users/changeset/CLionProjects/untitled/cmake-build-debug/CMakeFiles/CMakeOutput.log".
+    > See also
+    > "/Users/changeset/CLionProjects/untitled/cmake-build-debug/CMakeFiles/CMakeError.log".
+
+
+熬夜到3点都没查出来CMake是怎么读取系统文件的。
+
+Finally, I solved my problems here. It seems to be unusual.
+
+  - *The errors listed about CMake were caused by incorrectly invoking`uname`.*
+
+I checked out the [CMake manual][1], and I found that my mac produced the wrong [CMAKE_HOST_SYSTEM_NAME][2] results. And after test `uname` on my terminal, I found that maybe the kernel used wrong command. And then I `echo $PATH` found that my `$PATH` changed by cocos2d-x installed yesterday. The new `$PATH` include my `uname` programmed for study, and it overrided the kernel `uname`. After I delete `my uname`, clean CMake, restart CLion, everything is just going fine. Done. 
+
+
+这个uname是去年做毕设时余留的产物，所以覆盖了kernel中的`uname`。
+
+
+
+  [1]: https://cmake.org/cmake/help/v3.7/index.html
+  [2]: https://cmake.org/cmake/help/v3.7/variable/CMAKE_HOST_SYSTEM_NAME.html#variable:CMAKE_HOST_SYSTEM_NAME
+
+最后附上那个0..1000中有多少个"7"的验证程序。其实更简单的算法是把1-999中的个位、十位、百位中7做组合也就是每一位为7的数有`10 * 10 = 100`个，总共就是`100 * 3 = 300`个。
+
+{% highlight ruby %}
+#include <iostream>
+using namespace::std;
+int main() {
+    int m, n;
+    int temp, count = 0;
+    cin >> m >> n;
+    for (int i = m; i < n; i++){
+        temp = i;
+        while (temp) {
+            if ((temp % 10) == 7){
+                count ++;
+            }
+            temp /= 10;
+        }
+    }
+    cout << "numbers of 7: " << count << endl;
+    return 0;
+}
+{% endhighlight %}
+
+
+
+  你能从这里找到我：
+
+  我的[微博][weibo]
+
+  我的[知乎][zhihu]
+
+  我也很忙，就先这样。
+
+[weibo]: https://www.weibo.com/2679553124
+[zhihu]: https://www.zhihu.com/people/liao-xue-long

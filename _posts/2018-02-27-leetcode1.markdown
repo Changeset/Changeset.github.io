@@ -8,10 +8,13 @@ categories: jekyll update
 
 这个博客也有很久没有更新了，趁这个机会重新开坑嘻嘻。
 
-    首先来介绍下几种排序算法
+首先来介绍下几种排序算法
 
-    1.插入排序（Insertion Sort)
-    Insertion sort is a brute-force sorting algorithm that is based on a simple method that people often use to arrange hands of playing cards: Consider the cards one at a time and insert each into its proper place among those already considered (keeping them sorted). The following code mimics this process in a Java method that sorts strings in an array:
+1.插入排序（Insertion Sort)
+
+Insertion sort is a brute-force sorting algorithm that is based on a simple method that people often use to arrange hands of playing cards: Consider the cards one at a time and insert each into its proper place among those already considered (keeping them sorted). The following code mimics this process in a Java method that sorts strings in an array:
+
+`source code`
 
 {% highlight java %}
 public void insertionSort(String[] a) {
@@ -28,8 +31,11 @@ public void insertionSort(String[] a) {
 
 
 
-    2.选择排序（Selection Sort)
-    One of the simplest sorting algorithms works as follows: First, find the smallest item in the array, and exchange it with the first entry. Then, find the next smallest item and exchange it with the second entry. Continue in this way until the entire array is sorted. This method is called selection sort because it works by repeatedly selecting the smallest remaining item. Selection.java is an implementation of this method.
+2.选择排序（Selection Sort)
+
+One of the simplest sorting algorithms works as follows: First, find the smallest item in the array, and exchange it with the first entry. Then, find the next smallest item and exchange it with the second entry. Continue in this way until the entire array is sorted. This method is called selection sort because it works by repeatedly selecting the smallest remaining item. Selection.java is an implementation of this method.
+
+`source code`
 
 {% highlight java %}
 public void selectionSort(Comparable[] a) {

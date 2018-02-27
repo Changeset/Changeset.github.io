@@ -1,0 +1,55 @@
+---
+layout: post
+title:  "Algorithms(4th edition) SORTING"
+date:   2018-02-27 16:41:36 +0800
+categories: jekyll update
+---
+马上也快找实习了，也该把刷题需求提上日程啦，加油加油！
+
+这个博客也有很久没有更新了，趁这个机会重新开坑嘻嘻。
+
+    首先来介绍下几种排序算法
+
+    1.插入排序（Insertion Sort)
+    Insertion sort is a brute-force sorting algorithm that is based on a simple method that people often use to arrange hands of playing cards: Consider the cards one at a time and insert each into its proper place among those already considered (keeping them sorted). The following code mimics this process in a Java method that sorts strings in an array:
+
+{% highlight java %}
+public void insertionSort(String[] a) {
+    int n = a.length;
+    for (int i = 1; i < n; i++) {
+        for (int j = i; j > 0; j--) {
+            if (a[j-1].compareTo(a[j]) > )
+            exch(a, j, j-1);
+            else break;
+        }
+    }
+}
+{% endhighlight %}
+
+
+
+    2.选择排序（Selection Sort)
+    One of the simplest sorting algorithms works as follows: First, find the smallest item in the array, and exchange it with the first entry. Then, find the next smallest item and exchange it with the second entry. Continue in this way until the entire array is sorted. This method is called selection sort because it works by repeatedly selecting the smallest remaining item. Selection.java is an implementation of this method.
+
+{% highlight java %}
+public void selectionSort(Comparable[] a) {
+    int n = a.length;
+    for (int i = 0; i < n; i++) {
+        int min = i;
+        for (int j = i+1; j < n; j++) {
+            if (less(a[j], a[min])) min = j;
+        }
+        exch(a, i, min);
+    }
+}
+
+private static boolean less(Comparable v, Comparable w) {
+    return v.compareTo(w) < 0
+}
+
+private static void exch(Object[] a, int i, int j) {
+    Object swap = a[i];
+    a[i] = a[j];
+    a[j] = swap;
+}
+{% endhighlight %}

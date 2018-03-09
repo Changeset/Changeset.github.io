@@ -47,8 +47,8 @@ for (Iterator i = suits.iterator(); i.hasNext(); ) {
 So what does all this have to do with the for-each construct? It is tailor-made for nested iteration! Feast your eyes:
 {% highlight java linenos %}
 for (Suit suit : suits)
-for (Rank rank : ranks)
-    sortedDeck.add(new Card(suit, rank));
+    for (Rank rank : ranks)
+        sortedDeck.add(new Card(suit, rank));
 {% endhighlight %}
 
 The for-each construct is also applicable to arrays, where it hides the index variable rather than the iterator. The following method returns the sum of the values in an int array:

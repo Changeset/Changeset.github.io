@@ -26,17 +26,17 @@ When you see the colon (:) read it as “in.” The loop above reads as “for e
 
 Here is a common mistake people make when they are trying to do nested iteration over two collections:
 {% highlight java linenos %}
-	List suits = ...;
-    List ranks = ...;
-    List sortedDeck = new ArrayList();
-	// BROKEN - throws NoSuchElementException!
-    for (Iterator i = suits.iterator(); i.hasNext(); )
-        for (Iterator j = ranks.iterator(); j.hasNext(); )
-            sortedDeck.add(new Card(i.next(), j.next()));
+List suits = ...;
+List ranks = ...;
+List sortedDeck = new ArrayList();
+// BROKEN - throws NoSuchElementException!
+for (Iterator i = suits.iterator(); i.hasNext(); )
+    for (Iterator j = ranks.iterator(); j.hasNext(); )
+        sortedDeck.add(new Card(i.next(), j.next()));
 {% endhighlight %}
 Can you spot the bug? Don't feel bad if you can't. Many expert programmers have made this mistake at one time or another. The problem is that the next method is being called too many times on the “outer” collection (suits). It is being called in the inner loop for both the outer and inner collections, which is wrong. In order to fix it, you have to add a variable in the scope of the outer loop to hold the suit:
 {% highlight java linenos %}
-	// Fixed, though a bit ugly
+// Fixed, though a bit ugly
 for (Iterator i = suits.iterator(); i.hasNext(); ) {
     Suit suit = (Suit) i.next();
     for (Iterator j = ranks.iterator(); j.hasNext(); )
@@ -53,7 +53,7 @@ for (Rank rank : ranks)
 
 The for-each construct is also applicable to arrays, where it hides the index variable rather than the iterator. The following method returns the sum of the values in an int array:
 {% highlight java linenos %}
-	// Returns the sum of the elements of a
+// Returns the sum of the elements of a
 int sum(int[] a) {
     int result = 0;
     for (int i : a)

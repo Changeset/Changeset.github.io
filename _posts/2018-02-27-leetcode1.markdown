@@ -16,7 +16,7 @@ Insertion sort is a brute-force sorting algorithm that is based on a simple meth
 
 [source code][insertion]
 
-{% highlight java linenos%}
+{% highlight java linenos %}
 public void insertionSort(String[] a) {
     int n = a.length;
     for (int i = 1; i < n; i++) {

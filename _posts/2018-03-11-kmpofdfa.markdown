@@ -43,7 +43,7 @@ public int KMPsearch(String pattern, String text) {
     if (j == m) return i - m;
     else return n;
 }
-{% endhilight %}
+{% endhighlight %}
 以上代码是： 
 对于每个j， 
 匹配失败的时候，dfa[][X[j+1]]复制到dfa[][j]； 

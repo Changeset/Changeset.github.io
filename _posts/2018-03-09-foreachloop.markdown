@@ -1,70 +1,65 @@
 ---
 layout: post
-title:  "KMP Algorithms using DFA"
-date:   2018-03-11 19:25:36 +0800
+title:  "The For-Each Loop"
+date:   2018-03-09 22:05:36 +0800
 categories: jekyll update
 ---
 
-KMP（Knuth-Morris-Pratt）算法在字符串查找中是很高效的一种算法，假设文本字符串长度为n，模式字符串长度为m，则时间复杂度为O(m+n)，最坏情况下能提供线性时间运行时间保证。
+Iterating over a collection is uglier than it needs to be. Consider the following method, which takes a collection of timer tasks and cancels them:
 
-KMP算法的本质是构造一个DFA（确定性有限状态自动机），然后通过自动机对输入的字符串进行处理，每接收一个字符，就能转移到一个新的状态，如果自动机能够达到特定的状态，那么就能够匹配字符串，否则就匹配失败。
-
-先来了解一下DFA。 
-自动机分为两种：DFA和NFA（非确定性有限状态自动机），都可以用来匹配字符串。很多正则表达式引擎使用的就是NFA。
-
-如果有过FPGA开发经验，就会很清楚，自动机与硬件描述语言中常见的状态机类似。状态机是一种流程控制的模型。一个自动机包含多个状态，状态之间可以有条件的进行转移。这个条件就是输入。
-
-根据输入的不同，一个状态可以转移到另一个状态，或者保持当前状态。
-
-下面我再来讲KMP算法。
-
-朴素的字符串查找算法使用的是暴力搜索，过程大概是这样的： 
-假设要处理的文本字符串为s，要在其中查找字符串p（也称为模式字符串）。 
-先将s与p的首字符对齐，然后一个字符一个字符的对比，如果到某个字符不一样，就将p字符串右移一位，然后s与p的字符指针回退到新的对齐的位置，重新开始对比。 
-借用《算法（第四版）》中的代码如下，这里的i和j分别用来跟踪文本与模式字符串，i表示已经匹配过的字符序列的末端：
 {% highlight java linenos %}
-public int KMPsearch(String pattern, String text) {
-    int m = pattern.length();
-    int n = text.length();
-    int[][] dfa = new int[256][m];
-    dfa[pattern.charAt(0)][0] = 1;
-    int[] X = new int[m+1];
-    X[1] = 0;
-    for (int j = 1; j < m; j++) {
-        for (int c = 0; c < 256; c++)
-            dfa[c][j] = dfa[c][x];
-        dfa[pattern.charAt(j)][j] = j + 1;
-        X[j + 1] = dfa[pattern.charAt(j)][X[j]];
-    }
-    int i, j;
-    for (i = 0, j = 0; i < n && j < m; i++) {
-            j = dfa[text.charAt(i)][j];
-    }
-    if (j == m) return i - m;
-    else return n;
+void cancelAll(Collection<TimerTask> c) {
+    for (Iterator<TimerTask> i = c.iterator(); i.hasNext(); )
+        i.next().cancel();
 }
-{% endhilight %}
-以上代码是： 
-对于每个j， 
-匹配失败的时候，dfa[][X[j+1]]复制到dfa[][j]； 
-匹配成功的时候，dfa[pat.charAt(j)][j]设置为j+1； 
-更新X。
+{% endhighlight %}
 
-为什么这么做呢？ 
-因为状态要向后面转移，必须是接收了与模式匹配的正确的字符，每次这个字符有且只有一种情况，这个字符是pat.charAt(j)。其他的字符只能使状态保持或者状态回退。
+The iterator is just clutter. Furthermore, it is an opportunity for error. The iterator variable occurs three times in each loop: that is two chances to get it wrong. The for-each construct gets rid of the clutter and the opportunity for error. Here is how the example looks with the for-each construct:
+{% highlight java linenos %}
+void cancelAll(Collection<TimerTask> c) {
+    for (TimerTask t : c)
+        t.cancel();
+}
+{% endhighlight %}
 
-状态回退也就是让DFA重置到适当的状态，就好像回退过指针一样，但是我们不想回退指针，我们已经有了足够的信息来计算这个重启的位置。
+When you see the colon (:) read it as “in.” The loop above reads as “for each TimerTask t in c.” As you can see, the for-each construct combines beautifully with generics. It preserves all of the type safety, while removing the remaining clutter. Because you don't have to declare the iterator, you don't have to provide a generic declaration for it. (The compiler does this for you behind your back, but you need not concern yourself with it.)
 
-试想一下，如果真的回退指针，我们需要重新扫描文本字符，并且这些字符就是pat.charAt(1)到pat.charAt(j-1)之间的字符（因为前面都是匹配的），忽略首字母是因为需要右移一位，忽略最后一个字符是因为上次匹配失败。 
-重新扫描对比过的文本字符串，直到我们的能够找到一个最长的以pat.charAt(j-1)结尾的子串，能作为模式字符串p的前缀，然后将模式字符串与这个子串的位置对齐，然后重新开始字符对比。
+Here is a common mistake people make when they are trying to do nested iteration over two collections:
+{% highlight java linenos %}
+List suits = ...;
+List ranks = ...;
+List sortedDeck = new ArrayList();
+// BROKEN - throws NoSuchElementException!
+for (Iterator i = suits.iterator(); i.hasNext(); )
+    for (Iterator j = ranks.iterator(); j.hasNext(); )
+        sortedDeck.add(new Card(i.next(), j.next()));
+{% endhighlight %}
+Can you spot the bug? Don't feel bad if you can't. Many expert programmers have made this mistake at one time or another. The problem is that the next method is being called too many times on the “outer” collection (suits). It is being called in the inner loop for both the outer and inner collections, which is wrong. In order to fix it, you have to add a variable in the scope of the outer loop to hold the suit:
+{% highlight java linenos %}
+// Fixed, though a bit ugly
+for (Iterator i = suits.iterator(); i.hasNext(); ) {
+    Suit suit = (Suit) i.next();
+    for (Iterator j = ranks.iterator(); j.hasNext(); )
+        sortedDeck.add(new Card(suit, j.next()));
+}
+{% endhighlight %}
 
-但是实际上，我们不需要回退指针，因为刚才的扫描过程，也是一个状态转移的过程，相当于是一个子问题。 
-我们把pat.charAt(1)到pat.charAt(j-1)之间的字符，一个一个输入当前的得到的DFA（因为只需要处理j-1个字符，所以当前DFA已经足够处理，相当于扫描的时候，只用模式的前一部分），到pat.charAt(j-1)的时候，会停留在一个状态，这个状态就是下一个j的状态。 
-这个过程利用了已经建立好的DFA的信息，进行迭代，得到新的DFA的信息，所以可以这样把整个DFA都建立起来。
+So what does all this have to do with the for-each construct? It is tailor-made for nested iteration! Feast your eyes:
+{% highlight java linenos %}
+for (Suit suit : suits)
+    for (Rank rank : ranks)
+        sortedDeck.add(new Card(suit, rank));
+{% endhighlight %}
 
-dfa[text.charAt(i)][j]是指当文本字符串的字符s[i]与模式字符串的字符p[j]比较后下一次与文本字符串的字符s[i+1]比较的模式字符串的字符位。 
-当文本字符串的第i位字符与模式字符串的第j位进行匹配时，如果此两位字符匹配，则说明下一步应该为i++, j++之后再比较，也就是说当txt.charAt(i)==pat.charAt(j)时，有dfa[pat.charAt(j)][j]=j+1。 
+The for-each construct is also applicable to arrays, where it hides the index variable rather than the iterator. The following method returns the sum of the values in an int array:
+{% highlight java linenos %}
+// Returns the sum of the elements of a
+int sum(int[] a) {
+    int result = 0;
+    for (int i : a)
+        result += i;
+    return result;
+}
+{% endhighlight %}
 
-当文本字符串的第i位字符与模式字符串的第j位检测到不匹配时，设txt.charAt(i)==c，c!=pat.charAt(j)，但文本字符串的s[i-j...i-1]这部分与模式字符串的p[0...j-1]这部分是匹配的。这时从文本字符串的i-j位置起已不可能出现匹配字符串，现在已不用管s[i-j]字符，现在的问题是依次输入s[i-j+1...i-1]c后会进入什么状态，由于s[i-j...i-1]这部分与模式字符串的p[0...j-1]这部分是匹配的，也就是说现在的问题是依次输入p[1...j-1]c后会进入什么状态。引入一个状态指示数组X，X[j]是指正确输入p[1...j-1]后进入的状态，输入p[1...j-1]c后进入的状态就是dfa[c][X[j]]（在X[j]状态时输入c），即dfa[c][j]=dfa[c][x[j]]。 
-而计算X[]数组的方法为递推方法：X[j+1]为正确输入p[1...j]后进入的状态，即正确输入p[1...j-1]p[j]后进入的状态，也就是在X[j]状态时输入p[j]时进入的状态，就是dfa[pat.charAt[j]][X[j]]，即递推公式为：X[j+1]=dfa[pat.charAt[j]][X[j]]，而X[0]手动初始化为0。 
-由于X[]数组为辅助数据，且为递推的，所以书中仅使用了一个变量X来指示当前的X[j]，我觉得理解起来很不方便，所以这里由数组代替。 
+So when should you use the for-each loop? Any time you can. It really beautifies your code. Unfortunately, you cannot use it everywhere. Consider, for example, the expurgate method. The program needs access to the iterator in order to remove the current element. The for-each loop hides the iterator, so you cannot call remove. Therefore, the for-each loop is not usable for filtering. Similarly it is not usable for loops where you need to replace elements in a list or array as you traverse it. Finally, it is not usable for loops that must iterate over multiple collections in parallel. These shortcomings were known by the designers, who made a conscious decision to go with a clean, simple construct that would cover the great majority of cases.

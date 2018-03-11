@@ -62,4 +62,5 @@ int sum(int[] a) {
 }
 {% endhighlight %}
 
+
 So when should you use the for-each loop? Any time you can. It really beautifies your code. Unfortunately, you cannot use it everywhere. Consider, for example, the expurgate method. The program needs access to the iterator in order to remove the current element. The for-each loop hides the iterator, so you cannot call remove. Therefore, the for-each loop is not usable for filtering. Similarly it is not usable for loops where you need to replace elements in a list or array as you traverse it. Finally, it is not usable for loops that must iterate over multiple collections in parallel. These shortcomings were known by the designers, who made a conscious decision to go with a clean, simple construct that would cover the great majority of cases.

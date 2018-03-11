@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "KMP Algorithms using DFA"
-date:   2018-03-11 19:25:36 +0800
+date:   2018-03-11 19:49:36 +0800
 categories: jekyll update
 ---
 

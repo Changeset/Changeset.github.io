@@ -4,7 +4,7 @@ title: About
 permalink: /about/
 ---
 
-  我是changeset，华中科技大学体系结构研究生在读，擅长Linux系统编程及分布式存储，研究方向为存储安全。
+  我是changeset，华中科技大学体系结构研究生在读，擅长Java、C、Python等语言，以及Linux系统编程及分布式存储，研究方向为存储安全。
   
   `bio`
 
@@ -23,6 +23,6 @@ permalink: /about/
       Java web: Spring boot + mybatis + mysql;
       Linux file system: OSDFS + Linux system programming + redis;
       Algorithms: leetcode rating 2000;
-      
+
       Where there is a will, there is a way.
 

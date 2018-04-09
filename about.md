@@ -4,11 +4,25 @@ title: About
 permalink: /about/
 ---
 
-  我是changeset，HUST体系结构研究生在读，这是我的博客。
+  我是changeset，华中科技大学体系结构研究生在读，擅长Linux系统编程及分布式存储，研究方向为存储安全。
+  
+  `bio`
 
-  你如果对我感兴趣，可以查看
-{% include icon-github.html username="Changeset" %} /
-[一棵完全二叉树](http://www.weibo.com/2679553124)
+  `Education`
 
-  目前在学习网络编程，准备用Unity做个游戏。
+      2012.09-2016.06 华中科技大学 计算机科学与技术 本科
+      2016.09-2019.06 华中科技大学 计算机系统结构   硕士
+
+  `Publication`
+
+      1.《计算机科学与探索》 《对象存储下的溯源收集与存储研究》
+      2.`Digital Investigation` `Efficient monitoring and forensic analysis via accurate network-attached provenance collection with minimal storage overhead`
+  
+  `Skill`
+      
+      Java web: Spring boot + mybatis + mysql;
+      Linux file system: OSDFS + Linux system programming + redis;
+      Algorithms: leetcode rating 2000;
+      
+      Where there is a will, there is a way.
 

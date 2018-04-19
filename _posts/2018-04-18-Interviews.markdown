@@ -236,9 +236,7 @@ best hit
 
 3. 那入侵检测用的哪种算法
 
-4. 还了解别的入侵检测算法吗
-
-之前写本子调研的用CNN intrusion detection.
+4. 还了解别的入侵检测算法吗 （之前写本子调研的用CNN intrusion detection.
 
 5. 你承担的工作是哪些呢
 

@@ -25,7 +25,9 @@ void main(){
 
   我的[知乎][zhihu]
 
+  [腾讯防水墙][water]
   我也很忙，就先这样。
 
 [weibo]: https://www.weibo.com/2679553124
 [zhihu]: https://www.zhihu.com/people/liao-xue-long
+[water]: http://007.qq.com
